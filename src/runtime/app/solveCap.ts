@@ -1,5 +1,5 @@
+import { type CapConstructor, loadWidget } from './loadWidget';
 import { API_BASE, LOG_PREFIX } from '../shared/constants';
-import { loadWidget, type CapConstructor } from './loadWidget';
 
 export const SOLVE_TIMEOUT_MS = 30_000;
 

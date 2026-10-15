@@ -1,7 +1,7 @@
 import { createHash } from 'node:crypto';
-import { generateChallenge, type Format2ChallengeResult } from 'capjs-core';
+import { type Format2ChallengeResult, generateChallenge } from 'capjs-core';
 import { describe, expect, it } from 'vitest';
-import { createMemoryClaimStore, type ClaimStore } from './claim';
+import { type ClaimStore, createMemoryClaimStore } from './claim';
 import { readProofToken } from './proofToken';
 import { redeem, REDEEM_BODY_LIMIT } from './redeem';
 import { deriveKeys } from './secret';

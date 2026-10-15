@@ -1,6 +1,6 @@
-import type { CapOptions } from '../../shared/capOptions';
 import type { ClaimStore } from './claim';
 import type { CapKeys } from './secret';
+import type { CapOptions } from '../../shared/capOptions';
 
 export interface CapServer {
   keys: CapKeys;

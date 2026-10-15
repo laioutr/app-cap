@@ -1,7 +1,7 @@
 import { randomBytes } from 'node:crypto';
 import { afterEach, describe, expect, it, vi } from 'vitest';
-import { createMemoryClaimStore, type ClaimStore } from './claim';
-import { newProofId, signProofToken, type ProofFlag } from './proofToken';
+import { type ClaimStore, createMemoryClaimStore } from './claim';
+import { newProofId, type ProofFlag, signProofToken } from './proofToken';
 import { verifyProof } from './verifyProof';
 
 const key = randomBytes(32);

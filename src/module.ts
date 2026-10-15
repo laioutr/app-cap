@@ -1,9 +1,9 @@
 import { addPlugin, addServerHandler, addServerPlugin, createResolver, defineNuxtModule, installModule, useLogger } from '@nuxt/kit';
 import { defu } from 'defu';
-import type { Nuxt, NuxtModule } from '@nuxt/schema';
-import type { CapOptions } from './runtime/shared/capOptions';
-import { resolveCapOptions, type CapModuleOptions } from './module/resolveCapOptions';
+import { type CapModuleOptions, resolveCapOptions } from './module/resolveCapOptions';
 import { API_BASE, APP_NAME, ASSET_BASE } from './runtime/shared/constants';
+import type { CapOptions } from './runtime/shared/capOptions';
+import type { Nuxt, NuxtModule } from '@nuxt/schema';
 import { name, version } from '../package.json';
 
 export type ModuleOptions = CapModuleOptions;

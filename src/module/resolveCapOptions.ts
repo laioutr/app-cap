@@ -1,4 +1,4 @@
-import { DIFFICULTY, type CapOptions } from '../runtime/shared/capOptions';
+import { type CapOptions, DIFFICULTY } from '../runtime/shared/capOptions';
 
 export interface CapModuleOptions {
   /** Reject a browser that Cap's instrumentation identifies as automated. Default `true`. */

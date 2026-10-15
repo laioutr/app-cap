@@ -1,8 +1,8 @@
 import { validateChallenge, type ValidateChallengeBody } from 'capjs-core';
+import { newProofId, type ProofFlag, signProofToken } from './proofToken';
 import type { ClaimStore } from './claim';
 import type { CapKeys } from './secret';
 import { TOKEN_TTL_MS } from '../../shared/constants';
-import { newProofId, signProofToken, type ProofFlag } from './proofToken';
 
 export const REDEEM_BODY_LIMIT = 16 * 1024;
 

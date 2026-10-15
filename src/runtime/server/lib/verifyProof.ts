@@ -1,6 +1,6 @@
-import type { BotProtectionVerdict } from '@laioutr-core/frontend-core/bot-protection';
-import type { ClaimStore } from './claim';
 import { readProofToken } from './proofToken';
+import type { ClaimStore } from './claim';
+import type { BotProtectionVerdict } from '@laioutr-core/frontend-core/bot-protection';
 
 export const verifyProof = async (
   header: string | undefined,

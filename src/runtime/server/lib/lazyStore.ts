@@ -1,5 +1,5 @@
+import { type ClaimStore, createMemoryClaimStore, createRedisClaimStore, type RedisSetNx } from './claim';
 import { LOG_PREFIX } from '../../shared/constants';
-import { createMemoryClaimStore, createRedisClaimStore, type ClaimStore, type RedisSetNx } from './claim';
 
 /**
  * Finds the claim store on first use, because on Laioutr Cloud the cache mount appears after this app's
@@ -26,6 +26,7 @@ export const createLazyStore = (
 
     if (!reported) {
       reported = true;
+      // eslint-disable-next-line no-console -- the bot-protection contract reports a configuration gap with console.error
       console.error(`${LOG_PREFIX} No Redis is configured, so a proof cannot be made single-use. Every protected action will be rejected.`);
     }
     return undefined;

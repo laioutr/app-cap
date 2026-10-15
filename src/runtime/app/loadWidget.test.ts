@@ -7,6 +7,8 @@ import { ASSET_BASE } from '../shared/constants';
 const settleScriptsAs = (outcome: 'load' | 'error') => {
   (window as any).happyDOM.settings.handleDisabledFileLoadingAsSuccess = outcome === 'load';
 };
+// Stands in for the global that Cap's widget script defines.
+function FakeCap() {}
 const scripts = () => [...document.querySelectorAll<HTMLScriptElement>('script[src*="widget.js"]')];
 
 beforeEach(() => {
@@ -23,7 +25,7 @@ afterEach(() => {
 describe('loadWidget', () => {
   it('points every widget download at the project, then loads the script once', async () => {
     settleScriptsAs('load');
-    (window as any).Cap = class {};
+    (window as any).Cap = FakeCap;
     const { loadWidget } = await import('./loadWidget');
 
     const first = loadWidget();
@@ -54,7 +56,7 @@ describe('loadWidget', () => {
 
     const retried = loadWidget();
     expect(appended).toHaveLength(2);
-    (window as any).Cap = class {};
+    (window as any).Cap = FakeCap;
     appended[1]!.dispatchEvent(new Event('load'));
     await expect(retried).resolves.toBe((window as any).Cap);
   });

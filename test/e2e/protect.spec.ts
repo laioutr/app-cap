@@ -1,5 +1,5 @@
 import { existsSync } from 'node:fs';
-import { expect, test, type Page } from '@playwright/test';
+import { expect, type Page, test } from '@playwright/test';
 import { signBotProtectionBypass } from '@laioutr-core/frontend-core/bot-protection';
 import { BLOCKING_URL, E2E_SECRET, OPEN_URL } from '../../playwright.config';
 

@@ -1,6 +1,6 @@
+import { solveCap } from './solveCap';
 import type { BotProtectionAdapter } from '@laioutr-core/frontend-core/bot-protection';
 import { APP_NAME, TOKEN_HEADER, TOKEN_TTL_MS } from '../shared/constants';
-import { solveCap } from './solveCap';
 
 /** A held proof is sent only with this much life left, so it cannot expire on its way to the server. */
 export const MIN_TOKEN_LIFE_MS = 30_000;

@@ -38,4 +38,4 @@ const files = [
 ];
 for (const [from, to] of files) copyFileSync(from, to);
 
-console.log(`copy-assets: ${files.length} files for widget ${widgetVersion}, wasm ${wasmVersion}.`);
+process.stdout.write(`copy-assets: ${files.length} files for widget ${widgetVersion}, wasm ${wasmVersion}.\n`);
