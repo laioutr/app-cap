@@ -66,3 +66,6 @@ third-party-licenses
 # Playwright
 test-results
 playwright-report
+
+# A second playground build for the end-to-end suite
+.output-*

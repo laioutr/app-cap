@@ -3,7 +3,7 @@ import { defu } from 'defu';
 import type { Nuxt, NuxtModule } from '@nuxt/schema';
 import type { CapOptions } from './runtime/shared/capOptions';
 import { resolveCapOptions, type CapModuleOptions } from './module/resolveCapOptions';
-import { API_BASE, APP_NAME } from './runtime/shared/constants';
+import { API_BASE, APP_NAME, ASSET_BASE } from './runtime/shared/constants';
 import { name, version } from '../package.json';
 
 export type ModuleOptions = CapModuleOptions;
@@ -49,7 +49,10 @@ const module: NuxtModule<ModuleOptions> = defineNuxtModule<ModuleOptions>({
     nuxt.hook('nitro:config', (config) => {
       // The widget version is in the path, so the files never change under a URL.
       config.publicAssets ??= [];
-      config.publicAssets.push({ dir: runtime('app/public'), maxAge: ONE_YEAR_S });
+      // Its own base, because Nitro sends the cache header only for a directory with one. The base is the
+      // versioned path: Nitro's Vercel rule for `/app-cap` would also match a page such as `/app-capabilities`.
+      const assetBase = ASSET_BASE.replace(/\/$/, '');
+      config.publicAssets.push({ dir: runtime(`app/public${assetBase}`), baseURL: assetBase, maxAge: ONE_YEAR_S });
       // Inlined, so the aliases below reach its imports. External, it brings esbuild's 11 MB binary along.
       config.externals = defu(config.externals ?? {}, { inline: ['capjs-core'] });
       config.alias = { ...config.alias, esbuild: unbundled, 'javascript-obfuscator': unbundled };

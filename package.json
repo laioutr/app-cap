@@ -44,7 +44,8 @@
     "test": "vitest run",
     "test:e2e": "playwright test",
     "test:types": "vue-tsc --noEmit && vue-tsc --noEmit -p src/runtime/server && cd playground && vue-tsc --noEmit",
-    "test:watch": "vitest watch"
+    "test:watch": "vitest watch",
+    "test:e2e:build": "pnpm run assets && nuxi build playground && CAP_BLOCK_AUTOMATED_BROWSERS=false PLAYGROUND_OUTPUT_DIR=.output-open nuxi build playground"
   },
   "browserslist": [
     "> 0.5% and not dead"

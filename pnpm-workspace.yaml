@@ -5,6 +5,7 @@ allowBuilds:
   unrs-resolver: true
   vue-demi: true
 
+# Below the `engines` floor the install succeeds and the dev server then hangs without naming Node.
 engineStrict: true
 
 ignoredBuiltDependencies:
@@ -28,6 +29,13 @@ onlyBuiltDependencies:
   - unrs-resolver
   - vue-demi
 
+# frontend-core's @unhead/schema-org brings unhead 2.1, and Nuxt's @unhead/vue would stay on 2.0. Two
+# copies make every server-rendered page fail, so both resolve to one version.
+overrides:
+  '@unhead/vue': ^2.1.17
+  unhead: ^2.1.17
+
+# redisKeyPrefix() ships in the next core release. Remove this patch when the peer floor moves to it.
 patchedDependencies:
   '@laioutr-core/orchestr@0.71.0': patches/@laioutr-core__orchestr@0.71.0.patch
 
