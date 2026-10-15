@@ -41,6 +41,25 @@ describe.runIf(redisUrl)('redis claims', () => {
     expect(ttl).toBeLessThanOrEqual(5_000);
   });
 
+  // A tenant user whose ACL allows one key pattern, as on Laioutr Cloud. A key outside it gets NOPERM.
+  it('reports a refused command as an error, not as an outage', async () => {
+    const user = `app-cap-test-${Date.now()}`;
+    await client.sendCommand(['ACL', 'SETUSER', user, 'on', '>test-password', `~${prefix}allowed:*`, '+@all']);
+    const tenant = createClient({ url: redisUrl, username: user, password: 'test-password' });
+    tenant.on('error', () => {});
+    vi.spyOn(console, 'error').mockImplementation(() => {});
+    try {
+      await tenant.connect();
+      const store = createRedisClaimStore(async () => tenant as unknown as RedisSetNx, prefix);
+      expect(await store.claim('allowed:t:a', 5_000)).toBe('claimed');
+      expect(await store.claim('t:outside', 5_000)).toBe('error');
+    } finally {
+      await tenant.quit();
+      await client.sendCommand(['ACL', 'DELUSER', user]);
+      vi.restoreAllMocks();
+    }
+  });
+
   it('claims again when the connection comes back', async () => {
     let up = false;
     const store = createRedisClaimStore(async () => {

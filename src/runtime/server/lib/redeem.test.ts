@@ -1,16 +1,18 @@
 import { createHash } from 'node:crypto';
 import { type Format2ChallengeResult, generateChallenge } from 'capjs-core';
 import { describe, expect, it } from 'vitest';
-import { type ClaimStore, createMemoryClaimStore } from './claim';
+import { type ClaimResult, type ClaimStore, createMemoryClaimStore } from './claim';
 import { readProofToken } from './proofToken';
 import { redeem, REDEEM_BODY_LIMIT } from './redeem';
-import { deriveKeys } from './secret';
+import { type CapKeys, deriveKeys } from './secret';
 
-const keys = deriveKeys('test-secret');
+const strict = { blockAutomatedBrowsers: true, difficulty: 1_000_000 };
+const keys = deriveKeys('test-secret', strict);
+const storeAnswering = (result: ClaimResult): ClaimStore => ({ claim: async () => result });
 
 /** A real challenge, solved here: at difficulty 1 a SHA-256 proof needs one leading hex zero. */
-const solved = async () => {
-  const challenge = (await generateChallenge(keys.challenge, {
+const solved = async (signingKeys: CapKeys = keys) => {
+  const challenge = (await generateChallenge(signingKeys.challenge, {
     format: 2,
     protocols: ['sha256-pow'],
     challengeCount: 1,
@@ -42,11 +44,33 @@ describe('redeem', () => {
     expect(await redeem(body, keys, store)).toEqual({ status: 403, body: { success: false }, result: 'already-redeemed' });
   });
 
-  it('still issues a proof when the store is down, flagged so the verifier hands it to the policy', async () => {
-    const down: ClaimStore = { claim: async () => 'down' };
+  it('refuses a challenge issued under other options, as by an environment with the check off', async () => {
+    const lenient = deriveKeys('test-secret', { ...strict, blockAutomatedBrowsers: false });
+    expect(await redeem(await solved(lenient), keys, createMemoryClaimStore())).toMatchObject({ status: 403, body: { success: false } });
+  });
+
+  it('still issues a proof when the store is down, flagged and naming its challenge', async () => {
+    const claimed: string[] = [];
+    const down: ClaimStore = {
+      claim: async (key) => {
+        claimed.push(key);
+        return 'down';
+      },
+    };
     const outcome = await redeem(await solved(), keys, down);
     expect(outcome).toMatchObject({ status: 200, result: 'ok-unclaimed' });
-    expect(readProofToken(keys.token, tokenOf(outcome))).toMatchObject({ token: { flag: 'u' } });
+    const read = readProofToken(keys.token, tokenOf(outcome));
+    expect(read).toMatchObject({ token: { flag: 'u' } });
+    // The verifier claims this same key once the store is back.
+    expect(claimed).toEqual([`c:${(read as unknown as { token: { challenge: string } }).token.challenge}`]);
+  });
+
+  it('refuses to issue a proof when the store refuses the claim', async () => {
+    expect(await redeem(await solved(), keys, storeAnswering('error'))).toEqual({
+      status: 403,
+      body: { success: false },
+      result: 'store-refused',
+    });
   });
 
   it('rejects a wrong solution without saying why', async () => {

@@ -1,5 +1,5 @@
 import { validateChallenge, type ValidateChallengeBody } from 'capjs-core';
-import { newProofId, type ProofFlag, signProofToken } from './proofToken';
+import { challengeRef, newProofId, type ProofFlag, signProofToken } from './proofToken';
 import type { ClaimStore } from './claim';
 import type { CapKeys } from './secret';
 import { TOKEN_TTL_MS } from '../../shared/constants';
@@ -13,6 +13,7 @@ export type RedeemResult =
   | 'expired'
   | 'already-redeemed'
   | 'automated-browser'
+  | 'store-refused'
   | 'malformed'
   | '_OTHER';
 
@@ -37,6 +38,8 @@ const resultOf = (reason: string): RedeemResult => {
       return 'already-redeemed';
     case 'instr_automated_browser':
       return 'automated-browser';
+    case 'nonce_store_error':
+      return 'store-refused';
     case 'invalid_body':
     case 'invalid_token':
     case 'missing_token':
@@ -68,19 +71,33 @@ export const redeem = async (raw: string | undefined, keys: CapKeys, store: Clai
 
   // Widened: the claim callback changes it, and TypeScript does not see that assignment.
   let flag = 'c' as ProofFlag;
-  const result = await validateChallenge(keys.challenge, body, {
-    tokenTtlMs: TOKEN_TTL_MS,
-    consumeNonce: async (signature, ttlMs) => {
-      const claim = await store.claim(`c:${signature}`, ttlMs);
-      // The solution is valid and only the store failed: issue the proof, marked for the outage policy.
-      if (claim === 'down') {
-        flag = 'u';
-        return true;
-      }
-      return claim === 'claimed';
-    },
-    signToken: ({ expires }) => signProofToken(keys.token, { id: newProofId(), expires, flag }),
-  });
+  let challenge: string | undefined;
+  let result: Awaited<ReturnType<typeof validateChallenge>>;
+  try {
+    result = await validateChallenge(keys.challenge, body, {
+      tokenTtlMs: TOKEN_TTL_MS,
+      consumeNonce: async (signature, ttlMs) => {
+        challenge = challengeRef(signature);
+        const claim = await store.claim(`c:${challenge}`, ttlMs);
+        // The solution is valid and only the store failed: issue the proof, and the verifier claims the
+        // challenge once the store is back.
+        if (claim === 'down') {
+          flag = 'u';
+          return true;
+        }
+        // capjs-core turns a throw into `nonce_store_error`.
+        if (claim === 'error') throw new Error('The store refused the claim.');
+        return claim === 'claimed';
+      },
+      signToken: ({ expires }) => {
+        if (!challenge) throw new Error('A proof was signed before its challenge was claimed.');
+        return signProofToken(keys.token, { id: newProofId(), expires, flag, challenge });
+      },
+    });
+  } catch {
+    // Some crafted instrumentation payloads make capjs-core throw. They are a bad request, not a fault.
+    return refused(403, 'malformed');
+  }
 
   if (!result.success) return refused(403, resultOf(result.reason));
   return {

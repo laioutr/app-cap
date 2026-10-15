@@ -14,7 +14,7 @@ export default defineNitroPlugin(() => {
   const options = config[PACKAGE_NAME] as CapOptions;
   const devServer = import.meta.dev === true;
 
-  const resolved = resolveKeys(config.laioutr?.projectSecretKey, devServer);
+  const resolved = resolveKeys(config.laioutr?.projectSecretKey, devServer, options);
   if (!resolved.keys) {
     // eslint-disable-next-line no-console -- the bot-protection contract reports a configuration gap with console.error
     console.error(`${LOG_PREFIX} ${resolved.error}`);

@@ -33,8 +33,11 @@ Nothing loads before the first protected action.
    `config.botProtection.actions`, as for any bot-protection provider.
 2. Make sure the project has Redis for orchestr's cache. Laioutr Cloud has it. On Vercel, the project needs
    `redisUrl`. Without Redis, a built server rejects every protected action and logs why, because a proof
-   could not be made single-use.
-3. The project secret key signs the proofs. Cockpit writes a stable one into the `laioutrrc`.
+   could not be made single-use. The same happens when Redis refuses a claim, for example with `NOPERM`;
+   the log names the reply code.
+3. The project secret key signs the proofs. Cockpit writes a stable one into the `laioutrrc`. The signing
+   keys are also bound to the options, so a proof from an environment with weaker options, such as a test
+   environment with the automation check off, does not pass an environment with stricter ones.
 
 ### Options
 
@@ -61,7 +64,7 @@ Without `'unsafe-eval'` the instrumentation cannot run and every redeem fails.
 Headless Chromium fails the automation check, so Playwright suites cannot solve. Send frontend-core's
 signed bypass, `x-laioutr-bypass-bot-protection`, from
 `signBotProtectionBypass(projectSecretKey, action, nowSeconds)`. Or switch `blockAutomatedBrowsers` off
-in a test environment.
+in a test environment; its proofs do not pass an environment with the check on.
 
 ## Limits
 
@@ -70,8 +73,9 @@ in a test environment.
   with screens of mixed DPI are not measured.
 - **The automation check raises the cost for a bot. It does not stop every bot.** undetected-chromedriver,
   nodriver and headless Firefox pass it.
-- **While Redis is down, replay protection is off under `whenUnavailable: 'open'`.** Proofs redeemed
-  during the outage are marked, and the project's policy decides about them.
+- **While Redis is down, replay protection is off under `whenUnavailable: 'open'`.** A proof redeemed
+  during the outage is marked. While the outage lasts, the project's policy decides about it. When Redis is
+  back, the verifier claims the proof's challenge, so one solution passes once.
 - The UI shows the generic action error when a solve fails. The bot-protection contract has no error class
   for it yet.
 - Solve times are measured on an Apple M4 Pro only (p50 about 330 ms at the default difficulty).

@@ -1,4 +1,5 @@
 import { existsSync } from 'node:fs';
+import { request as httpRequest } from 'node:http';
 import { expect, type Page, test } from '@playwright/test';
 import { signBotProtectionBypass } from '@laioutr-core/frontend-core/bot-protection';
 import { BLOCKING_URL, E2E_SECRET, OPEN_URL } from '../../playwright.config';
@@ -38,6 +39,18 @@ test.describe('a browser that may solve', () => {
     });
     expect(replay.status()).toBe(403);
     expect(await replay.json()).toEqual({ success: false });
+  });
+
+  test('refuses a chunked redeem body over the limit before reading it all', async () => {
+    // No content-length: the route has to count while it reads.
+    const status = await new Promise<number>((resolve, reject) => {
+      const req = httpRequest(`${OPEN_URL}/api/app-cap/redeem`, { method: 'POST', headers: { 'content-type': 'application/json' } });
+      req.on('response', (response) => resolve(response.statusCode ?? 0));
+      req.on('error', reject);
+      for (let i = 0; i < 64; i++) req.write(Buffer.alloc(1_024, 'x'));
+      req.end();
+    });
+    expect(status).toBe(413);
   });
 
   test('serves the widget files as immutable, with the WASM type', async ({ request }) => {
