@@ -1,0 +1,28 @@
+shamefullyHoist: true
+strictPeerDependencies: false
+# Below the `engines` floor the install succeeds and the dev server then hangs without naming Node.
+engineStrict: true
+allowBuilds:
+  '@parcel/watcher': true
+  esbuild: true
+  sharp: true
+  unrs-resolver: true
+  vue-demi: true
+ignoredBuiltDependencies:
+  - protobufjs
+  - yarn
+onlyBuiltDependencies:
+  - '@parcel/watcher'
+  - esbuild
+  - json-editor-vue
+  - sharp
+  - unrs-resolver
+  - vue-demi
+minimumReleaseAgeExclude:
+  - '@laioutr-core/canonical-types'
+  - '@laioutr-core/core-types'
+  - '@laioutr-core/devtools'
+  - '@laioutr-core/frontend-core'
+  - '@laioutr-core/kit'
+  - '@laioutr-core/orchestr'
+  - '@laioutr-app/ui'
