@@ -58,3 +58,11 @@ coverage
 Network Trash Folder
 Temporary Items
 .apdisk
+
+# Copied from the pinned Cap packages by `pnpm run assets`
+src/runtime/app/public/app-cap
+third-party-licenses
+
+# Playwright
+test-results
+playwright-report

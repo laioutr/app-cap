@@ -1,9 +1,16 @@
 {
-  "name": "my-laioutr-app",
-  "version": "1.0.0",
-  "description": "My new Laioutr App",
-  "repository": "your-org/my-laioutr-app",
+  "name": "@laioutr/app-cap",
+  "version": "0.0.0",
+  "description": "Self-hosted proof-of-work bot protection for Laioutr actions, built on Cap",
+  "repository": "laioutr/app-cap",
   "license": "MIT",
+  "keywords": [
+    "laioutr",
+    "laioutr-app",
+    "bot-protection",
+    "proof-of-work",
+    "captcha"
+  ],
   "type": "module",
   "packageManager": "pnpm@10.15.0",
   "exports": {
@@ -21,19 +28,21 @@
     }
   },
   "files": [
-    "dist"
+    "dist",
+    "third-party-licenses"
   ],
   "scripts": {
+    "assets": "node scripts/copy-assets.mjs",
     "dev": "pnpm run dev:prepare && nuxi dev playground",
-    "dev:build": "nuxi build playground",
-    "dev:prepare": "nuxt-module-build build --stub && nuxt-module-build prepare && nuxi prepare playground",
-    "rc:fetch": "laioutr rc fetch",
+    "dev:build": "pnpm run assets && nuxi build playground",
+    "dev:prepare": "pnpm run assets && nuxt-module-build build --stub && nuxt-module-build prepare && nuxi prepare playground",
     "lint": "eslint .",
-    "prepack": "nuxt-module-build build",
+    "prepack": "pnpm run assets && nuxt-module-build build",
     "changeset": "changeset",
     "version": "changeset version",
     "release": "pnpm run prepack && changeset publish",
     "test": "vitest run",
+    "test:e2e": "playwright test",
     "test:types": "vue-tsc --noEmit && vue-tsc --noEmit -p src/runtime/server && cd playground && vue-tsc --noEmit",
     "test:watch": "vitest watch"
   },
@@ -42,16 +51,20 @@
   ],
   "dependencies": {
     "@nuxt/kit": "3.16.2",
-    "zod": "3.25.61"
+    "@opentelemetry/api": "^1.9.0",
+    "capjs-core": "0.1.5",
+    "defu": "6.1.4",
+    "h3": "^1.15.0"
   },
   "devDependencies": {
+    "@cap.js/wasm": "0.0.8",
+    "@cap.js/widget": "0.1.58",
     "@changesets/cli": "^2.31.0",
-    "@laioutr-app/ui": "^2.25.2",
-    "@laioutr-core/canonical-types": "^0.34.2",
-    "@laioutr-core/core-types": "^0.57.1",
-    "@laioutr-core/devtools": "^0.57.1",
-    "@laioutr-core/frontend-core": "^0.57.1",
-    "@laioutr/cli": "^0.4.1",
+    "@laioutr-app/ui": "^2.32.1",
+    "@laioutr-core/canonical-types": "^0.38.5",
+    "@laioutr-core/core-types": "^0.71.0",
+    "@laioutr-core/devtools": "^0.71.0",
+    "@laioutr-core/frontend-core": "^0.71.0",
     "@laioutr/eslint-config": "^1.8.8",
     "@laioutr/prettier-config": "^1.1.0",
     "@nuxt/devtools": "^2.6.3",
@@ -60,22 +73,29 @@
     "@nuxt/test-utils": "3.19.1",
     "@pinia/colada": "0.17.1",
     "@pinia/colada-nuxt": "0.2.1",
+    "@playwright/test": "1.57.0",
     "@types/node": "latest",
     "@vueuse/core": "13.1.0",
     "eslint": "^9.35.0",
+    "happy-dom": "^20.14.5",
+    "ioredis": "^5.8.0",
     "nuxt": "3.16.2",
+    "pako": "2.1.0",
     "pinia": "3.0.2",
+    "redis": "^6.2.1",
     "typescript": "5.9.2",
     "vitest": "3.1.1",
     "vue-tsc": "2.2.10"
   },
   "peerDependencies": {
-    "@laioutr-core/canonical-types": ">=0.26.2",
-    "@laioutr-core/core-types": ">=0.37.1",
-    "@laioutr-core/frontend-core": ">=0.37.1"
+    "@laioutr-core/frontend-core": ">=0.71.0"
   },
   "engines": {
     "node": ">=22.12.0",
     "pnpm": ">=10.15.0"
+  },
+  "publishConfig": {
+    "access": "public",
+    "provenance": true
   }
 }

@@ -1,0 +1,29 @@
+diff --git a/dist/runtime/server/imports/useCache.d.ts b/dist/runtime/server/imports/useCache.d.ts
+index 32d9f74b3ebaaa54f36f9d56e39e6fe57248b2a7..a28df5395477d47f25de6ee7872f38e9f58bdd78 100644
+--- a/dist/runtime/server/imports/useCache.d.ts
++++ b/dist/runtime/server/imports/useCache.d.ts
+@@ -37,4 +37,9 @@ export declare function useUserlandCache<T>(namespace?: string): TypedCacheStore
+  * on this instance. Open your own client for those.
+  */
+ export declare const useRedis: () => Promise<RedisClient | undefined>;
++/**
++ * The root for an app's own keys on the `useRedis()` connection: `<scope>:app-<app>:`. `undefined`
++ * exactly when `useRedis()` has no connection to give.
++ */
++export declare const redisKeyPrefix: (app: string) => string | undefined;
+ export {};
+diff --git a/dist/runtime/server/imports/useCache.js b/dist/runtime/server/imports/useCache.js
+index d8b7343848819568f8ed183f95840a1f3c640378..9e7e5927d49dbe3a234b66aa24a27d4401fcc678 100644
+--- a/dist/runtime/server/imports/useCache.js
++++ b/dist/runtime/server/imports/useCache.js
+@@ -113,3 +113,10 @@ export const useRedis = async () => {
+   await lazy.connected();
+   return client;
+ };
++const APP_KEY_ROOT = /^[a-z0-9-]+$/;
++export const redisKeyPrefix = (app) => {
++  if (!APP_KEY_ROOT.test(app)) throw new TypeError(`redisKeyPrefix: "${app}" must match ${APP_KEY_ROOT}.`);
++  if (redisUrlOf(ORCHESTR_CACHE_KEY_INTERNAL) === void 0) return void 0;
++  const scope = (redisDriverOption(ORCHESTR_CACHE_KEY_INTERNAL, "base") ?? "").replace(/:$/, "");
++  return scope ? `${scope}:app-${app}:` : `app-${app}:`;
++};
