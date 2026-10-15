@@ -50,6 +50,16 @@ jobs:
   test:
     runs-on: ubuntu-latest
 
+    # The claim tests run against a real Redis, and they refuse to skip when CI is set.
+    services:
+      redis:
+        image: redis:7
+        ports:
+          - 6379:6379
+
+    env:
+      REDIS_URL: redis://127.0.0.1:6379
+
     steps:
       - uses: actions/checkout@v5
 
@@ -79,3 +89,52 @@ jobs:
 
       - name: Test
         run: pnpm run test
+
+  e2e:
+    runs-on: ubuntu-latest
+
+    services:
+      redis:
+        image: redis:7
+        ports:
+          - 6379:6379
+
+    # The playground bakes this URL into its build, and Playwright reuses the service on its port.
+    env:
+      REDIS_URL: redis://127.0.0.1:6379
+
+    steps:
+      - uses: actions/checkout@v5
+
+      - uses: pnpm/action-setup@v4
+
+      - uses: actions/setup-node@v5
+        with:
+          node-version-file: .nvmrc
+
+      # The committed `.npmrc` maps the scopes; the token goes to the user config, where `npm login`
+      # puts it for a developer. CI then installs the way the setup guide does.
+      - name: Configure the Laioutr registry
+        env:
+          NPM_LAIOUTR_TOKEN: ${{ secrets.NPM_LAIOUTR_TOKEN }}
+        run: |
+          if [ -z "$NPM_LAIOUTR_TOKEN" ]; then
+            echo "::error::The NPM_LAIOUTR_TOKEN secret is not set. Add an organization API key with registry:read."
+            exit 1
+          fi
+          echo "//npm.laioutr.cloud/:_authToken=${NPM_LAIOUTR_TOKEN}" >> ~/.npmrc
+
+      - name: Install dependencies
+        run: pnpm install
+
+      - name: Prepare
+        run: pnpm run dev:prepare
+
+      - name: Install Chromium
+        run: pnpm exec playwright install --with-deps chromium
+
+      - name: Build the playground with and without the automation check
+        run: pnpm run test:e2e:build
+
+      - name: End to end
+        run: pnpm run test:e2e

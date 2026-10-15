@@ -21,20 +21,29 @@ pnpm vitest run src/path/to/file.test.ts   # a single suite
 
 ## Architecture
 
-`src/module.ts` is the Nuxt module entry: it registers runtime config, server routes, public assets
-and page types, and hands the Orchestr directory to `registerLaioutrApp`.
+The app makes Cap (trycap.dev) the bot-protection provider of a Laioutr storefront. frontend-core owns the
+contract, the protected-action list, the outage policy and the errors. This app fills in both halves, and
+the design is `docs/plans/2026-10-15-app-cap-design.md` in the laioutr monorepo.
 
-**Orchestr handler types**, by filename suffix under `src/runtime/server/orchestr/<entity>/`:
+- `src/runtime/shared/constants.ts` spells the name once. Paths, keys, labels and the provider value
+  derive from `APP_NAME`.
+- `src/module.ts` checks the options (`src/module/resolveCapOptions.ts`, laioutrrc is untrusted), names
+  the provider, registers the plugins and the two routes, serves the widget files, inlines `capjs-core`
+  and aliases `esbuild` and `javascript-obfuscator` to a stub that throws. Without the inline and the
+  alias, the server output grows by 16 MB.
+- `src/runtime/app/` solves in the browser: `loadWidget` points the widget at the project's own files,
+  `solveCap` runs one hidden widget per solve with a 30 s limit, `createAdapter` holds one proof ahead and
+  never hands one out twice.
+- `src/runtime/server/` issues challenges, redeems solutions into a signed single-use token
+  (`proofToken`), and verifies the token at the action (`verifyProof`). Claims are `SET NX PX` below
+  `redisKeyPrefix('cap')` (`claim`). The store is found on first use (`lazyStore`), because on Laioutr
+  Cloud the cache mount appears after this app's plugin runs.
 
-- `*.query.ts` — fetch and return entity IDs
-- `*.link.ts` — relationships between entities
-- `*.resolver.ts` — resolve data components for an entity
-- `*.action.ts` — mutations and side effects
-- `*.page-index.ts` — enumerate a page type's entities and resolve a URL back to one
-- `*.template.ts` — preset, labelled query inputs an editor picks from in Studio
+Unit tests need no Nuxt. The Redis claim tests run when `REDIS_URL` is set and are required in CI. Only
+the Playwright suite in `test/e2e/` proves the browser half, against two production builds.
 
-Canonical entity types come from `@laioutr-core/canonical-types`. Apps consume them and do not define
-them — a shape that feels wrong belongs upstream, not patched locally.
+`scripts/copy-assets.mjs` copies the widget files from the pinned packages. Bump `@cap.js/widget`,
+`@cap.js/wasm` and `WIDGET_VERSION` together; the script refuses a pair that does not match.
 
 ## Rules
 

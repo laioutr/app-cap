@@ -1,111 +1,129 @@
-<!--
-Get your module up and running quickly.
-
-Find and replace all on all files (CMD+SHIFT+F):
-- Name: My Laioutr App
-- Package name: my-laioutr-app
-- Description: My new Laioutr App
--->
-
-# My Laioutr App
+# app-cap
 
 [![Laioutr][laioutr-src]][laioutr-href]
-[![npm version][npm-version-src]][npm-version-href]
-[![npm downloads][npm-downloads-src]][npm-downloads-href]
 [![License][license-src]][license-href]
 [![Nuxt][nuxt-src]][nuxt-href]
 
-My new [Laioutr](https://laioutr.com) App for doing amazing things using Nuxt.
+Bot protection for [Laioutr](https://laioutr.com) actions without a vendor account. The app makes
+[Cap](https://trycap.dev), an open-source proof-of-work check with browser instrumentation, the
+bot-protection provider of a storefront. Everything runs in the storefront's own Nitro server, and the
+browser contacts no third party.
 
-See [laioutr.com](https://laioutr.com) for more information about Laioutr.
+> **Status: pre-release.** The app needs `redisKeyPrefix()` from `@laioutr-core/orchestr`, which ships in
+> the next core release. Until then, `patches/@laioutr-core__orchestr@0.71.0.patch` adds it to 0.71.0.
+> When the release is out, raise the `@laioutr-core/frontend-core` peer floor to it and remove the patch.
 
-- [✨ &nbsp;Release Notes](/CHANGELOG.md)
-  <!-- - [🏀 Online playground](https://stackblitz.com/github/your-org/my-laioutr-app?file=playground%2Fapp.vue) -->
-  <!-- - [📖 &nbsp;Documentation](https://example.com) -->
+## How it works
 
-## Features
+1. A visitor starts a protected action. frontend-core asks the app for a proof.
+2. A hidden widget fetches a challenge from `POST /api/app-cap/challenge`, solves it in a web worker, runs
+   the instrumentation, and redeems the solution at `POST /api/app-cap/redeem`.
+3. The redeem route checks the solution, claims the challenge once, and returns a signed proof token, valid
+   for 10 minutes.
+4. The action request carries the token in `x-cap-token`. The verifier checks the signature and the expiry,
+   and claims the token once.
+5. After each use the app solves the next proof in the background, so only the first protected action of a
+   visit waits for a solve.
 
-<!-- Highlight some of the features your module provide here -->
+Nothing loads before the first protected action.
 
-- ⛰ &nbsp;Foo
-- 🚠 &nbsp;Bar
-- 🌲 &nbsp;Baz
+## Setup
 
-## Quick Setup
+1. Add the app to the project's `laioutrrc` and list the protected actions in
+   `config.botProtection.actions`, as for any bot-protection provider.
+2. Make sure the project has Redis for orchestr's cache. Laioutr Cloud has it. On Vercel, the project needs
+   `redisUrl`. Without Redis, a built server rejects every protected action and logs why, because a proof
+   could not be made single-use.
+3. The project secret key signs the proofs. Cockpit writes a stable one into the `laioutrrc`.
 
-Requires Node.js 22.12 or newer and pnpm 10 or newer. The committed `.npmrc` maps the Laioutr scopes to [npm.laioutr.cloud](https://npm.laioutr.cloud).
+### Options
 
-1. `npm login --registry https://npm.laioutr.cloud` — once per machine; the token goes to your user `~/.npmrc`. See the [Laioutr NPM Guide](https://docs.laioutr.com/cockpit/project-settings/npm).
-2. `pnpm install`
-3. `pnpm rc:fetch -p <organization slug>/<project slug> -s <project secret key>` — writes `laioutrrc.json` with your project's configuration. Until then, the playground runs on placeholder content from `playground/fixtures/laioutrrc.json`.
-   The playground installs every app listed in its `apps`, so add the ones your project uses besides `@laioutr-app/ui`: `pnpm add -D <package>`.
-4. `pnpm dev` — starts the playground on http://localhost:3000.
+| Option | Default | Effect |
+| --- | --- | --- |
+| `blockAutomatedBrowsers` | `true` | Reject a browser that Cap's instrumentation identifies as automated |
+| `difficulty` | `1000000` | Expected hashes per solve, clamped to `50000`–`5000000` |
 
-That's it! You can now use My Laioutr App in your [Laioutr Frontend](https://laioutr.com) ✨
+A value of the wrong type falls back to the default, with a warning that names the option.
 
-You can find a thorough guide on getting started with Laioutr development in our [developer guide](https://docs.laioutr.com/getting-started/next-steps/local-setup).
+### Content Security Policy
 
-## Linting and Formatting
+Measured in Chromium on a production build, a solve needs these sources in addition to `'self'`:
 
-We use ESLint and Prettier to lint and format the code. This repository contains opinionated configurations for both tools. You can, of course, replace them with your own configurations.
+```
+script-src 'wasm-unsafe-eval' 'unsafe-eval'
+worker-src blob:
+```
+
+Without `'unsafe-eval'` the instrumentation cannot run and every redeem fails.
+
+### Test suites
+
+Headless Chromium fails the automation check, so Playwright suites cannot solve. Send frontend-core's
+signed bypass, `x-laioutr-bypass-bot-protection`, from
+`signBotProtectionBypass(projectSecretKey, action, nowSeconds)`. Or switch `blockAutomatedBrowsers` off
+in a test environment.
+
+## Limits
+
+- **A browser that cannot finish a solve cannot do a protected action**, even with
+  `whenUnavailable: 'open'`. This includes a false positive of the automation check. Tor Browser and setups
+  with screens of mixed DPI are not measured.
+- **The automation check raises the cost for a bot. It does not stop every bot.** undetected-chromedriver,
+  nodriver and headless Firefox pass it.
+- **While Redis is down, replay protection is off under `whenUnavailable: 'open'`.** Proofs redeemed
+  during the outage are marked, and the project's policy decides about them.
+- The UI shows the generic action error when a solve fails. The bot-protection contract has no error class
+  for it yet.
+- Solve times are measured on an Apple M4 Pro only (p50 about 330 ms at the default difficulty).
+
+## Consent
+
+The app adds no consent integration. Before the first protected action, nothing loads. At that action, the
+browser loads the widget and its WASM from the storefront's own origin, and the instrumentation script
+reads browser and screen properties. The customer judges the consent question for their storefront.
+
+## Development
+
+Requires Node.js 22.12 or newer and pnpm 10 or newer. The committed `.npmrc` maps the Laioutr scopes to
+[npm.laioutr.cloud](https://npm.laioutr.cloud); log in once per machine with
+`npm login --registry https://npm.laioutr.cloud`.
+
+```bash
+pnpm install
+pnpm dev:prepare                     # copies the widget assets, stubs the module, prepares the playground
+pnpm dev                             # playground on http://localhost:3000, page /check
+pnpm test                            # unit tests; set REDIS_URL to include the Redis claim tests
+pnpm test:e2e:build && pnpm test:e2e # two production builds and Playwright; needs redis-server
+pnpm lint && pnpm test:types
+```
+
+`pnpm run assets` copies the widget, both WASM files and pako's inflate from the pinned packages into
+`src/runtime/app/public/app-cap/<widget version>/`, and the license texts into `third-party-licenses/`.
+It refuses a widget or WASM version other than the pinned pair.
 
 ## Publishing
 
-Releases run through [changesets](https://github.com/changesets/changesets) and publish to npmjs.org
-with [npm trusted publishing](https://docs.npmjs.com/trusted-publishers), so CI needs no npm token and
-every release carries provenance.
+Releases run through [changesets](https://github.com/changesets/changesets) and publish to npmjs.org with
+[npm trusted publishing](https://docs.npmjs.com/trusted-publishers). Before the first release:
 
-Day to day: run `pnpm changeset` to describe your change and merge it. The release workflow opens a
-"chore: release" PR collecting the pending changesets; merging **that** builds and publishes.
+1. Get the CTO's approval for a public `@laioutr/*` package.
+   Then remove `"private": true` from `package.json`. It stops `changeset publish` until then.
+2. Add the repository secrets `NPM_LAIOUTR_TOKEN` (read access to npm.laioutr.cloud) and `RELEASE_TOKEN`
+   (a fine-grained PAT with Contents and Pull requests read and write on this repository).
+3. Publish the first version by hand, because trusted publishing needs the package to exist:
+   `pnpm prepack && npm publish --access public --no-provenance`.
+4. Configure the trusted publisher on npm: GitHub Actions, this repository, workflow `release.yml`.
 
-### One-time setup per repository
+## License
 
-1. **Repository secrets**
-   - `NPM_LAIOUTR_TOKEN` — read access to npm.laioutr.cloud, so CI can install `@laioutr-core/*`.
-   - `RELEASE_TOKEN` — a fine-grained PAT owned by the org, scoped to this repo, with **Contents:
-     read and write** and **Pull requests: read and write**. A PR opened with the default
-     `GITHUB_TOKEN` cannot trigger workflows, so release PRs would arrive with no CI and could never
-     satisfy a required-status rule.
-
-2. **Bootstrap the package on npm.** Trusted publishing is configured on a package that already
-   exists, so the very first version has to be published by hand. `publishConfig.provenance` fails
-   outside CI — there is no OIDC provider — so disable it for that one publish:
-
-   ```bash
-   pnpm prepack
-   npm publish --access public --no-provenance
-   ```
-
-   A brand-new package can 404 on the registry for a few minutes afterwards. That is replication lag,
-   not a failed publish; check again before re-running anything.
-
-3. **Configure the trusted publisher** on the package's npm settings page: GitHub Actions,
-   this repository, workflow `release.yml`. Every release after that is tokenless.
-
-### Private publishing
-
-If you want to publish a private package to npm.laioutr.cloud, you need to:
-
-1. Log in with publish access: `npm login --registry https://npm.laioutr.cloud`, then enable **Publish** on the authorize screen. Keep the token in your user `~/.npmrc` — the project's `.npmrc` is committed.
-2. Add this line to the root of the `package.json` file: `"publishConfig": { "registry": "https://npm.laioutr.cloud/" }`
-3. Make sure your package-name follows the `@laioutr-org/<organization-slug>__<package-name>` format.
-
-After that you can run `pnpm release` to publish the package to npm.laioutr.cloud.
-
-More information for publishing can be found in the [NPM Guide](https://docs.laioutr.com/cockpit/project-settings/npm#publish-an-organization-package).
-
-## Contribution
-
-Follow the [setup guide](https://docs.laioutr.com/getting-started/next-steps/local-setup) to get started.
+The app's own code is MIT. The package ships third-party files with their license texts in
+`third-party-licenses/`: Cap's widget and WASM (Apache-2.0) and pako's inflate (MIT and Zlib).
+`capjs-core` is a dependency under Apache-2.0.
 
 <!-- Badges -->
 
-[npm-version-src]: https://img.shields.io/npm/v/my-laioutr-app/latest.svg?style=flat&colorA=020420&colorB=00DC82
-[npm-version-href]: https://npmjs.com/package/my-laioutr-app
-[npm-downloads-src]: https://img.shields.io/npm/dm/my-laioutr-app.svg?style=flat&colorA=020420&colorB=00DC82
-[npm-downloads-href]: https://npm.chart.dev/my-laioutr-app
-[license-src]: https://img.shields.io/npm/l/my-laioutr-app.svg?style=flat&colorA=020420&colorB=00DC82
-[license-href]: https://npmjs.com/package/my-laioutr-app
+[license-src]: https://img.shields.io/badge/license-MIT-020420?style=flat&colorA=020420&colorB=00DC82
+[license-href]: ./LICENSE.md
 [nuxt-src]: https://img.shields.io/badge/Nuxt-020420?logo=nuxt.js
 [nuxt-href]: https://nuxt.com
 [laioutr-src]: https://img.shields.io/badge/%F0%9F%A6%99_Laioutr_App-702DCE
