@@ -2,7 +2,13 @@ import type { BotProtectionVerdict } from '@laioutr-core/frontend-core/bot-prote
 import type { ClaimStore } from './claim';
 import { readProofToken } from './proofToken';
 
-export const verifyProof = async (header: string | undefined, tokenKey: Buffer, store: ClaimStore): Promise<BotProtectionVerdict> => {
+export const verifyProof = async (
+  header: string | undefined,
+  tokenKey: Buffer,
+  store: ClaimStore | undefined
+): Promise<BotProtectionVerdict> => {
+  // A configuration gap, not an outage: `unavailable` would let the project's open policy pass everything.
+  if (!store) return { status: 'invalid', reason: 'no-store' };
   if (!header) return { status: 'invalid', reason: 'missing-proof' };
 
   const read = readProofToken(tokenKey, header);

@@ -11,6 +11,10 @@ const tokenFor = (flag: ProofFlag, expires = Date.now() + 60_000) => signProofTo
 afterEach(() => vi.useRealTimers());
 
 describe('verifyProof', () => {
+  it('rejects every proof when no store exists, as for a missing provider', async () => {
+    expect(await verifyProof(tokenFor('c'), key, undefined)).toEqual({ status: 'invalid', reason: 'no-store' });
+  });
+
   it('rejects a request without a proof', async () => {
     expect(await verifyProof(undefined, key, createMemoryClaimStore())).toEqual({ status: 'invalid', reason: 'missing-proof' });
   });

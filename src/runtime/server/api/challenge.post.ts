@@ -9,7 +9,7 @@ export default defineEventHandler(async (event) => {
   setResponseHeader(event, 'cache-control', 'no-store');
   const server = capServer();
   // Without a secret or a store no proof could be redeemed, so the browser is spared the solve.
-  if (!server) throw createError({ statusCode: 503, statusMessage: 'Bot protection is not available' });
+  if (!server?.store()) throw createError({ statusCode: 503, statusMessage: 'Bot protection is not available' });
 
   return generateChallenge(server.keys.challenge, {
     format: 2,

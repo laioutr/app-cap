@@ -6,12 +6,13 @@ import { redeem, REDEEM_BODY_LIMIT, refused } from '../lib/redeem';
 export default defineEventHandler(async (event) => {
   setResponseHeader(event, 'cache-control', 'no-store');
   const server = capServer();
-  if (!server) throw createError({ statusCode: 503, statusMessage: 'Bot protection is not available' });
+  const store = server?.store();
+  if (!server || !store) throw createError({ statusCode: 503, statusMessage: 'Bot protection is not available' });
 
   // Refused before reading, so a large body costs nothing.
   const declared = Number(getRequestHeader(event, 'content-length'));
   const outcome =
-    declared > REDEEM_BODY_LIMIT ? refused(413, 'malformed') : await redeem(await readRawBody(event, 'utf8'), server.keys, server.store);
+    declared > REDEEM_BODY_LIMIT ? refused(413, 'malformed') : await redeem(await readRawBody(event, 'utf8'), server.keys, store);
 
   trace.getActiveSpan()?.setAttribute('app_cap.redeem.result', outcome.result);
   setResponseStatus(event, outcome.status);

@@ -4,13 +4,14 @@ import type { CapKeys } from './secret';
 
 export interface CapServer {
   keys: CapKeys;
-  store: ClaimStore;
   options: CapOptions;
+  /** `undefined` while no store exists. */
+  store: () => ClaimStore | undefined;
 }
 
 let current: CapServer | undefined;
 
-/** Set by the Nitro plugin once a secret and a store exist. The routes answer 503 until then. */
+/** Set by the Nitro plugin once a secret exists. The routes answer 503 until then, or while no store exists. */
 export const setCapServer = (server: CapServer) => {
   current = server;
 };
