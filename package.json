@@ -62,11 +62,11 @@
     "@cap.js/wasm": "0.0.8",
     "@cap.js/widget": "0.1.58",
     "@changesets/cli": "^2.31.0",
-    "@laioutr-app/ui": "^2.32.1",
-    "@laioutr-core/canonical-types": "^0.38.5",
-    "@laioutr-core/core-types": "^0.71.0",
-    "@laioutr-core/devtools": "^0.71.0",
-    "@laioutr-core/frontend-core": "^0.71.0",
+    "@laioutr-app/ui": "^2.33.1",
+    "@laioutr-core/canonical-types": "^0.39.1",
+    "@laioutr-core/core-types": "^0.73.0",
+    "@laioutr-core/devtools": "^0.73.0",
+    "@laioutr-core/frontend-core": "^0.73.0",
     "@laioutr/eslint-config": "^1.8.8",
     "@laioutr/prettier-config": "^1.1.0",
     "@nuxt/devtools": "^2.6.3",
@@ -90,7 +90,7 @@
     "vue-tsc": "2.2.10"
   },
   "peerDependencies": {
-    "@laioutr-core/frontend-core": ">=0.71.0"
+    "@laioutr-core/frontend-core": ">=0.72.0"
   },
   "engines": {
     "node": ">=22.12.0",

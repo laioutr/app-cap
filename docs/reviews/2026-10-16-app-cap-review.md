@@ -199,6 +199,7 @@ I3 extends an outage's verdict past the outage. The Minor items can follow.
 | I2 | Fixed. A Redis reply error (`ErrorReply` class or an upper-case code word) is `error`, not `down`: the verifier answers `invalid` / `store-refused`, the redeem answers 403 / `store-refused`, and the store logs the reply code once. Timeouts and connection failures stay `down`. | `claim.test.ts` "reports a refused command as an error" with a real ACL user (NOPERM); verdict and redeem cases. |
 | I3 | Fixed. The token carries `challengeRef(signature)`. The verifier claims `c:<ref>` for a `u` token: claimed → `valid`, taken → `replayed`, down → `unavailable` / `unclaimed-challenge`. The redeem claims the same key. | `verifyProof.test.ts` "claims its challenge now, so one solution passes once after the outage"; a sabotage that skips the claim fails it. |
 | M1 | Fixed. A throw inside `validateChallenge` answers 403 / `malformed`. | `redeem.crash.test.ts` with the library's throw faked. |
-| M2–M7 | Deferred. | Listed as deferred minors in the report to the user. |
+| M2–M6 | Deferred. | Listed as deferred minors in the report to the user. |
+| M7 | Fixed after the core release. The peer floor is `>=0.72.0`, the first release with `redisKeyPrefix`, and the orchestr patch is gone. | orchestr 0.72.0 changelog; the suites below pass against frontend-core 0.73.0 without the patch. |
 
 After the fixes: unit 12 files / 84 tests, e2e 6 tests on two production builds, lint and types clean.

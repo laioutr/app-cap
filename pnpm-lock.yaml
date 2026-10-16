@@ -8,11 +8,6 @@ overrides:
   '@unhead/vue': ^2.1.17
   unhead: ^2.1.17
 
-patchedDependencies:
-  '@laioutr-core/orchestr@0.71.0':
-    hash: bdf026dfe0eca39fa5d8c272a9d370f5c8d0773af56ec284af0edff5803f1531
-    path: patches/@laioutr-core__orchestr@0.71.0.patch
-
 importers:
 
   .:
@@ -43,20 +38,20 @@ importers:
         specifier: ^2.31.0
         version: 2.31.1(@types/node@24.9.1)
       '@laioutr-app/ui':
-        specifier: ^2.32.1
-        version: 2.32.1(@opentelemetry/api-logs@0.221.0)(@opentelemetry/resources@2.11.0(@opentelemetry/api@1.9.1))(@opentelemetry/sdk-logs@0.221.0(@opentelemetry/api@1.9.1))(@unhead/vue@2.1.17(vue@3.5.22(typescript@5.9.2)))(@unocss/webpack@66.2.3(webpack@5.102.1(esbuild@0.28.2)))(@vue/compiler-dom@3.5.22)(change-case@5.4.4)(db0@0.3.4)(eslint@9.38.0(jiti@2.6.1))(focus-trap@7.6.6)(fuse.js@7.1.0)(ioredis@5.8.2)(magicast@0.3.5)(nuxt@3.16.2(@parcel/watcher@2.5.1)(@types/node@24.9.1)(db0@0.3.4)(eslint@9.38.0(jiti@2.6.1))(ioredis@5.8.2)(magicast@0.3.5)(optionator@0.9.4)(rollup@4.52.5)(terser@5.44.0)(typescript@5.9.2)(vite@6.4.1(@types/node@24.9.1)(jiti@2.6.1)(terser@5.44.0)(yaml@2.9.1))(vue-tsc@2.2.10(typescript@5.9.2))(yaml@2.9.1))(postcss@8.5.6)(rollup@4.52.5)(typescript@5.9.2)(vite@6.4.1(@types/node@24.9.1)(jiti@2.6.1)(terser@5.44.0)(yaml@2.9.1))(vue-router@4.6.3(vue@3.5.22(typescript@5.9.2)))(vue@3.5.22(typescript@5.9.2))(webpack@5.102.1(esbuild@0.28.2))
+        specifier: ^2.33.1
+        version: 2.33.1(@opentelemetry/api-logs@0.221.0)(@opentelemetry/resources@2.11.0(@opentelemetry/api@1.9.1))(@opentelemetry/sdk-logs@0.221.0(@opentelemetry/api@1.9.1))(@unhead/vue@2.1.17(vue@3.5.22(typescript@5.9.2)))(@unocss/webpack@66.2.3(webpack@5.102.1(esbuild@0.28.2)))(@vue/compiler-dom@3.5.22)(change-case@5.4.4)(db0@0.3.4)(eslint@9.38.0(jiti@2.6.1))(focus-trap@7.6.6)(fuse.js@7.1.0)(ioredis@5.8.2)(magicast@0.3.5)(nuxt@3.16.2(@parcel/watcher@2.5.1)(@types/node@24.9.1)(db0@0.3.4)(eslint@9.38.0(jiti@2.6.1))(ioredis@5.8.2)(magicast@0.3.5)(optionator@0.9.4)(rollup@4.52.5)(terser@5.44.0)(typescript@5.9.2)(vite@6.4.1(@types/node@24.9.1)(jiti@2.6.1)(terser@5.44.0)(yaml@2.9.1))(vue-tsc@2.2.10(typescript@5.9.2))(yaml@2.9.1))(postcss@8.5.6)(rollup@4.52.5)(typescript@5.9.2)(vite@6.4.1(@types/node@24.9.1)(jiti@2.6.1)(terser@5.44.0)(yaml@2.9.1))(vue-router@4.6.3(vue@3.5.22(typescript@5.9.2)))(vue@3.5.22(typescript@5.9.2))(webpack@5.102.1(esbuild@0.28.2))
       '@laioutr-core/canonical-types':
-        specifier: ^0.38.5
-        version: 0.38.5
+        specifier: ^0.39.1
+        version: 0.39.1
       '@laioutr-core/core-types':
-        specifier: ^0.71.0
-        version: 0.71.0
+        specifier: ^0.73.0
+        version: 0.73.0
       '@laioutr-core/devtools':
-        specifier: ^0.71.0
-        version: 0.71.0(magicast@0.3.5)(vite@6.4.1(@types/node@24.9.1)(jiti@2.6.1)(terser@5.44.0)(yaml@2.9.1))(vue@3.5.22(typescript@5.9.2))
+        specifier: ^0.73.0
+        version: 0.73.0(magicast@0.3.5)(vite@6.4.1(@types/node@24.9.1)(jiti@2.6.1)(terser@5.44.0)(yaml@2.9.1))(vue@3.5.22(typescript@5.9.2))
       '@laioutr-core/frontend-core':
-        specifier: ^0.71.0
-        version: 0.71.0(@opentelemetry/api-logs@0.221.0)(@opentelemetry/resources@2.11.0(@opentelemetry/api@1.9.1))(@opentelemetry/sdk-logs@0.221.0(@opentelemetry/api@1.9.1))(@unhead/vue@2.1.17(vue@3.5.22(typescript@5.9.2)))(@vue/compiler-dom@3.5.22)(change-case@5.4.4)(db0@0.3.4)(eslint@9.38.0(jiti@2.6.1))(focus-trap@7.6.6)(fuse.js@7.1.0)(ioredis@5.8.2)(magicast@0.3.5)(nuxt@3.16.2(@parcel/watcher@2.5.1)(@types/node@24.9.1)(db0@0.3.4)(eslint@9.38.0(jiti@2.6.1))(ioredis@5.8.2)(magicast@0.3.5)(optionator@0.9.4)(rollup@4.52.5)(terser@5.44.0)(typescript@5.9.2)(vite@6.4.1(@types/node@24.9.1)(jiti@2.6.1)(terser@5.44.0)(yaml@2.9.1))(vue-tsc@2.2.10(typescript@5.9.2))(yaml@2.9.1))(rollup@4.52.5)(typescript@5.9.2)(vue-router@4.6.3(vue@3.5.22(typescript@5.9.2)))(vue@3.5.22(typescript@5.9.2))
+        specifier: ^0.73.0
+        version: 0.73.0(@opentelemetry/api-logs@0.221.0)(@opentelemetry/resources@2.11.0(@opentelemetry/api@1.9.1))(@opentelemetry/sdk-logs@0.221.0(@opentelemetry/api@1.9.1))(@unhead/vue@2.1.17(vue@3.5.22(typescript@5.9.2)))(@vue/compiler-dom@3.5.22)(change-case@5.4.4)(db0@0.3.4)(eslint@9.38.0(jiti@2.6.1))(focus-trap@7.6.6)(fuse.js@7.1.0)(ioredis@5.8.2)(magicast@0.3.5)(nuxt@3.16.2(@parcel/watcher@2.5.1)(@types/node@24.9.1)(db0@0.3.4)(eslint@9.38.0(jiti@2.6.1))(ioredis@5.8.2)(magicast@0.3.5)(optionator@0.9.4)(rollup@4.52.5)(terser@5.44.0)(typescript@5.9.2)(vite@6.4.1(@types/node@24.9.1)(jiti@2.6.1)(terser@5.44.0)(yaml@2.9.1))(vue-tsc@2.2.10(typescript@5.9.2))(yaml@2.9.1))(rollup@4.52.5)(typescript@5.9.2)(vue-router@4.6.3(vue@3.5.22(typescript@5.9.2)))(vue@3.5.22(typescript@5.9.2))
       '@laioutr/eslint-config':
         specifier: ^1.8.8
         version: 1.8.8(@typescript-eslint/eslint-plugin@8.46.2(@typescript-eslint/parser@8.46.2(eslint@9.38.0(jiti@2.6.1))(typescript@5.9.2))(eslint@9.38.0(jiti@2.6.1))(typescript@5.9.2))(@typescript-eslint/utils@8.46.2(eslint@9.38.0(jiti@2.6.1))(typescript@5.9.2))(eslint-import-resolver-node@0.3.9)(eslint-plugin-import@2.32.0(@typescript-eslint/parser@8.46.2(eslint@9.38.0(jiti@2.6.1))(typescript@5.9.2))(eslint-import-resolver-typescript@3.10.1)(eslint@9.38.0(jiti@2.6.1)))(jiti@2.6.1)
@@ -1344,42 +1339,42 @@ packages:
   '@kwsites/promise-deferred@1.1.1':
     resolution: {integrity: sha512-GaHYm+c0O9MjZRu0ongGBRbinu8gVAMd2UZjji6jVmqKtZluZnptXGWhz1E8j8D2HJ3f/yMxKAUC0b+57wncIw==}
 
-  '@laioutr-app/ui@2.32.1':
-    resolution: {integrity: sha512-1lOFqU2gF2TOeeTfxm3vi7YV3LG4FKiUZ6f2e1QutOwoOEiBU6X4wReca3VFyp4d6pMca8qGZUsa3U0+TmN8jw==}
+  '@laioutr-app/ui@2.33.1':
+    resolution: {integrity: sha512-KuuLy+R6yHIIAaaO3zIxx/KoKLiAfayNB0puIIOORB9VnB+trPYSBCa9ocF6+Ef4XABjBjCNU24SuScx8q61XA==}
 
-  '@laioutr-core/canonical-types@0.38.5':
-    resolution: {integrity: sha512-CpIuOjs5rd/1rxZlkbDiDXJ5YP7jos/PZhYRwyMFzHmOH06/QUQW0zMqh/wX6WYh3Z4UeHaw0LB53YP1v4YxDA==}
+  '@laioutr-core/canonical-types@0.39.1':
+    resolution: {integrity: sha512-aWglzVsgmT0e6aYMzyXKn4ZxrqOoqM8U7306JeMA6c5Cx7iZT1Vz3mhhKImaHlScP/AMjQOJ4Lly719RltD0oQ==}
 
-  '@laioutr-core/core-types@0.71.0':
-    resolution: {integrity: sha512-E02w7s+x2cs2ArPx5BiSYqspH0/qv4AHt5jKwzc8GO8sRGCFHp48GjzENMWmf+8BUkRlCz53AxSSqg+WfbmfNA==}
+  '@laioutr-core/core-types@0.73.0':
+    resolution: {integrity: sha512-lzmNJuQflN8c5Se3Oi/mtx3DkznKKWl5CSejp0hOedGhSgU6E1PrG9cvDAD2irDO/4cRDc5ZNMZQOAi6R3+2gw==}
 
-  '@laioutr-core/devtools@0.71.0':
-    resolution: {integrity: sha512-y63jIcUwO+/r4II3DdVxzDv/WCBI0F8UzZu8TreGyut/bfTlBrSm86gCn4d+ZWYO5443/D9e2hzChvInUAf8aw==}
+  '@laioutr-core/devtools@0.73.0':
+    resolution: {integrity: sha512-bFvvAax28otcoOsXlGxmfy1RmFHMtbxJDxmhLWTtUOxfDxRajqlPJF7eZyWabMyL3seuJEuxuFOHdyJ5TbDPCA==}
     peerDependencies:
       vite: ^4.0.0 || ^5.0.0 || ^6.0.0
 
-  '@laioutr-core/frontend-core@0.71.0':
-    resolution: {integrity: sha512-E8PRiF0IH6sUNGOZmBa+TymfJJKQqRumxQM49GZ5pjQhMu7ivo6wUGcwS1D/tzyIIKcWJbFHzTUIlGXwGltZIA==}
+  '@laioutr-core/frontend-core@0.73.0':
+    resolution: {integrity: sha512-w7J76RaxI/K7rRdBcg8Lx1bTAKSb5xB5BRNLPGlYInv93SqAZaivwFLFaKM67BgDSzCj97At+Xciy1RAp6BHyA==}
 
-  '@laioutr-core/kit@0.71.0':
-    resolution: {integrity: sha512-oTauuIaXS5LpgpZOBiMvGbNxL7hQf4v8eUswRhpIfdjarE7jbhesGAG+cctia9dOl/MB6pawFSENRr507wflXA==}
+  '@laioutr-core/kit@0.73.0':
+    resolution: {integrity: sha512-4zbXVWJvLVOrLIpvecBvvCRc4hQY9iM3r6un307OHdNIFFbe/AIwWSLKlGhL7+oozSi1/xQD4xAfY8Zb4QhyAQ==}
 
-  '@laioutr-core/orchestr@0.71.0':
-    resolution: {integrity: sha512-PCPW7vp3apchBVgyhdKVWlAvuPWhNM0jO5Fr0Ghaactqd7wCSTaheYowRWgVfyukSCY9KKeFsELMOxEgBGARxg==}
+  '@laioutr-core/orchestr@0.73.0':
+    resolution: {integrity: sha512-7vdyInyjrkeThh830w3NKmGSGvuVuxjwzGzN8YJ13poskQxVw84doxEXCjE8JDep2IBX7osUP7ahrb3l+4VZIA==}
     peerDependencies:
       pinia: 3.0.2
       vue-router: ^4.5.0
 
-  '@laioutr-core/ui-kit@2.32.1':
-    resolution: {integrity: sha512-14m3sMeQSxulw7/Pe3jRQie/WxyG5VAmNz8Cv6OjoSbKx0LxznCN14Iu6fobSmcIhsKmDA/BLhiivToDDbMUqA==}
+  '@laioutr-core/ui-kit@2.33.1':
+    resolution: {integrity: sha512-G+SVq8HvkQlOl0/es1rk9uiuKJRPUJXEzLB/KNZ5ZVlv/F6NFewPjnvLCD+2fuqbfEwcAM12r6VWNZ4G8hIMDA==}
     peerDependencies:
       vue-router: ^4.5.0
 
-  '@laioutr-core/ui-tokens@2.32.1':
-    resolution: {integrity: sha512-c1H2Z1/S2uTqJ90YQ66FjDp+SveBMLUxOtFidL3XqXu82dQnMZ5TJ0vhuhWz7z1J6T1Mnq8PVUWBwcugLBbQyQ==}
+  '@laioutr-core/ui-tokens@2.33.1':
+    resolution: {integrity: sha512-sPX/UHPdqNfalA33ees3HS0/kFSLVDycRxdhU74RliGNhB/N0swrqE88rox+tH/odi7zT1Onf1GIfxJ3EeslYw==}
 
-  '@laioutr-core/ui@2.32.1':
-    resolution: {integrity: sha512-2DbNGvoS1gwIwSarLcmjJLQLRuy8sqLKQTnIpFpiXm7ic6JfQw3g9l3v1XunbOJjghirQJ6QxRWyhvbKsleXTg==}
+  '@laioutr-core/ui@2.33.1':
+    resolution: {integrity: sha512-VjbyrRyCoPVyEy9zqHHT9vcJSPLUL7UcK0ZClibU5X+3F7vPBuR5An2TRVGKk1fb5Rghr34u4dEGBOaimBaCcA==}
     peerDependencies:
       vite: ^4.0.0 || ^5.0.0 || ^6.0.0
 
@@ -9345,14 +9340,14 @@ snapshots:
 
   '@kwsites/promise-deferred@1.1.1': {}
 
-  '@laioutr-app/ui@2.32.1(@opentelemetry/api-logs@0.221.0)(@opentelemetry/resources@2.11.0(@opentelemetry/api@1.9.1))(@opentelemetry/sdk-logs@0.221.0(@opentelemetry/api@1.9.1))(@unhead/vue@2.1.17(vue@3.5.22(typescript@5.9.2)))(@unocss/webpack@66.2.3(webpack@5.102.1(esbuild@0.28.2)))(@vue/compiler-dom@3.5.22)(change-case@5.4.4)(db0@0.3.4)(eslint@9.38.0(jiti@2.6.1))(focus-trap@7.6.6)(fuse.js@7.1.0)(ioredis@5.8.2)(magicast@0.3.5)(nuxt@3.16.2(@parcel/watcher@2.5.1)(@types/node@24.9.1)(db0@0.3.4)(eslint@9.38.0(jiti@2.6.1))(ioredis@5.8.2)(magicast@0.3.5)(optionator@0.9.4)(rollup@4.52.5)(terser@5.44.0)(typescript@5.9.2)(vite@6.4.1(@types/node@24.9.1)(jiti@2.6.1)(terser@5.44.0)(yaml@2.9.1))(vue-tsc@2.2.10(typescript@5.9.2))(yaml@2.9.1))(postcss@8.5.6)(rollup@4.52.5)(typescript@5.9.2)(vite@6.4.1(@types/node@24.9.1)(jiti@2.6.1)(terser@5.44.0)(yaml@2.9.1))(vue-router@4.6.3(vue@3.5.22(typescript@5.9.2)))(vue@3.5.22(typescript@5.9.2))(webpack@5.102.1(esbuild@0.28.2))':
+  '@laioutr-app/ui@2.33.1(@opentelemetry/api-logs@0.221.0)(@opentelemetry/resources@2.11.0(@opentelemetry/api@1.9.1))(@opentelemetry/sdk-logs@0.221.0(@opentelemetry/api@1.9.1))(@unhead/vue@2.1.17(vue@3.5.22(typescript@5.9.2)))(@unocss/webpack@66.2.3(webpack@5.102.1(esbuild@0.28.2)))(@vue/compiler-dom@3.5.22)(change-case@5.4.4)(db0@0.3.4)(eslint@9.38.0(jiti@2.6.1))(focus-trap@7.6.6)(fuse.js@7.1.0)(ioredis@5.8.2)(magicast@0.3.5)(nuxt@3.16.2(@parcel/watcher@2.5.1)(@types/node@24.9.1)(db0@0.3.4)(eslint@9.38.0(jiti@2.6.1))(ioredis@5.8.2)(magicast@0.3.5)(optionator@0.9.4)(rollup@4.52.5)(terser@5.44.0)(typescript@5.9.2)(vite@6.4.1(@types/node@24.9.1)(jiti@2.6.1)(terser@5.44.0)(yaml@2.9.1))(vue-tsc@2.2.10(typescript@5.9.2))(yaml@2.9.1))(postcss@8.5.6)(rollup@4.52.5)(typescript@5.9.2)(vite@6.4.1(@types/node@24.9.1)(jiti@2.6.1)(terser@5.44.0)(yaml@2.9.1))(vue-router@4.6.3(vue@3.5.22(typescript@5.9.2)))(vue@3.5.22(typescript@5.9.2))(webpack@5.102.1(esbuild@0.28.2))':
     dependencies:
       '@googlemaps/js-api-loader': 1.16.10
-      '@laioutr-core/canonical-types': 0.38.5
-      '@laioutr-core/core-types': 0.71.0
-      '@laioutr-core/frontend-core': 0.71.0(@opentelemetry/api-logs@0.221.0)(@opentelemetry/resources@2.11.0(@opentelemetry/api@1.9.1))(@opentelemetry/sdk-logs@0.221.0(@opentelemetry/api@1.9.1))(@unhead/vue@2.1.17(vue@3.5.22(typescript@5.9.2)))(@vue/compiler-dom@3.5.22)(change-case@5.4.4)(db0@0.3.4)(eslint@9.38.0(jiti@2.6.1))(focus-trap@7.6.6)(fuse.js@7.1.0)(ioredis@5.8.2)(magicast@0.3.5)(nuxt@3.16.2(@parcel/watcher@2.5.1)(@types/node@24.9.1)(db0@0.3.4)(eslint@9.38.0(jiti@2.6.1))(ioredis@5.8.2)(magicast@0.3.5)(optionator@0.9.4)(rollup@4.52.5)(terser@5.44.0)(typescript@5.9.2)(vite@6.4.1(@types/node@24.9.1)(jiti@2.6.1)(terser@5.44.0)(yaml@2.9.1))(vue-tsc@2.2.10(typescript@5.9.2))(yaml@2.9.1))(rollup@4.52.5)(typescript@5.9.2)(vue-router@4.6.3(vue@3.5.22(typescript@5.9.2)))(vue@3.5.22(typescript@5.9.2))
-      '@laioutr-core/kit': 0.71.0(magicast@0.3.5)
-      '@laioutr-core/ui': 2.32.1(@unocss/webpack@66.2.3(webpack@5.102.1(esbuild@0.28.2)))(@vue/compiler-dom@3.5.22)(db0@0.3.4)(eslint@9.38.0(jiti@2.6.1))(ioredis@5.8.2)(magicast@0.3.5)(postcss@8.5.6)(rollup@4.52.5)(vite@6.4.1(@types/node@24.9.1)(jiti@2.6.1)(terser@5.44.0)(yaml@2.9.1))(vue-router@4.6.3(vue@3.5.22(typescript@5.9.2)))(vue@3.5.22(typescript@5.9.2))(webpack@5.102.1(esbuild@0.28.2))
+      '@laioutr-core/canonical-types': 0.39.1
+      '@laioutr-core/core-types': 0.73.0
+      '@laioutr-core/frontend-core': 0.73.0(@opentelemetry/api-logs@0.221.0)(@opentelemetry/resources@2.11.0(@opentelemetry/api@1.9.1))(@opentelemetry/sdk-logs@0.221.0(@opentelemetry/api@1.9.1))(@unhead/vue@2.1.17(vue@3.5.22(typescript@5.9.2)))(@vue/compiler-dom@3.5.22)(change-case@5.4.4)(db0@0.3.4)(eslint@9.38.0(jiti@2.6.1))(focus-trap@7.6.6)(fuse.js@7.1.0)(ioredis@5.8.2)(magicast@0.3.5)(nuxt@3.16.2(@parcel/watcher@2.5.1)(@types/node@24.9.1)(db0@0.3.4)(eslint@9.38.0(jiti@2.6.1))(ioredis@5.8.2)(magicast@0.3.5)(optionator@0.9.4)(rollup@4.52.5)(terser@5.44.0)(typescript@5.9.2)(vite@6.4.1(@types/node@24.9.1)(jiti@2.6.1)(terser@5.44.0)(yaml@2.9.1))(vue-tsc@2.2.10(typescript@5.9.2))(yaml@2.9.1))(rollup@4.52.5)(typescript@5.9.2)(vue-router@4.6.3(vue@3.5.22(typescript@5.9.2)))(vue@3.5.22(typescript@5.9.2))
+      '@laioutr-core/kit': 0.73.0(magicast@0.3.5)
+      '@laioutr-core/ui': 2.33.1(@unocss/webpack@66.2.3(webpack@5.102.1(esbuild@0.28.2)))(@vue/compiler-dom@3.5.22)(db0@0.3.4)(eslint@9.38.0(jiti@2.6.1))(ioredis@5.8.2)(magicast@0.3.5)(postcss@8.5.6)(rollup@4.52.5)(vite@6.4.1(@types/node@24.9.1)(jiti@2.6.1)(terser@5.44.0)(yaml@2.9.1))(vue-router@4.6.3(vue@3.5.22(typescript@5.9.2)))(vue@3.5.22(typescript@5.9.2))(webpack@5.102.1(esbuild@0.28.2))
       '@nuxt/kit': 3.16.2(magicast@0.3.5)
       '@unhead/schema-org': 2.1.17(@unhead/vue@2.1.17(vue@3.5.22(typescript@5.9.2)))
       '@vueuse/core': 13.1.0(vue@3.5.22(typescript@5.9.2))
@@ -9417,24 +9412,24 @@ snapshots:
       - vue-router
       - webpack
 
-  '@laioutr-core/canonical-types@0.38.5':
+  '@laioutr-core/canonical-types@0.39.1':
     dependencies:
       '@ebec/http': 2.3.0
-      '@laioutr-core/core-types': 0.71.0
+      '@laioutr-core/core-types': 0.73.0
       '@screeny05/ts-money': 1.1.0
       ebec: 2.3.0
       schema-dts: 2.1.0
       type-fest: 5.7.0
       zod: 3.25.61
 
-  '@laioutr-core/core-types@0.71.0':
+  '@laioutr-core/core-types@0.73.0':
     dependencies:
       '@laioutr/expression': 1.1.0
       ebec: 2.3.0
       type-fest: 5.7.0
       zod: 3.25.61
 
-  '@laioutr-core/devtools@0.71.0(magicast@0.3.5)(vite@6.4.1(@types/node@24.9.1)(jiti@2.6.1)(terser@5.44.0)(yaml@2.9.1))(vue@3.5.22(typescript@5.9.2))':
+  '@laioutr-core/devtools@0.73.0(magicast@0.3.5)(vite@6.4.1(@types/node@24.9.1)(jiti@2.6.1)(terser@5.44.0)(yaml@2.9.1))(vue@3.5.22(typescript@5.9.2))':
     dependencies:
       '@nuxt/devtools': 2.7.0(vite@6.4.1(@types/node@24.9.1)(jiti@2.6.1)(terser@5.44.0)(yaml@2.9.1))(vue@3.5.22(typescript@5.9.2))
       '@nuxt/devtools-kit': 2.5.0(magicast@0.3.5)(vite@6.4.1(@types/node@24.9.1)(jiti@2.6.1)(terser@5.44.0)(yaml@2.9.1))
@@ -9450,11 +9445,11 @@ snapshots:
       - utf-8-validate
       - vue
 
-  '@laioutr-core/frontend-core@0.71.0(@opentelemetry/api-logs@0.221.0)(@opentelemetry/resources@2.11.0(@opentelemetry/api@1.9.1))(@opentelemetry/sdk-logs@0.221.0(@opentelemetry/api@1.9.1))(@unhead/vue@2.1.17(vue@3.5.22(typescript@5.9.2)))(@vue/compiler-dom@3.5.22)(change-case@5.4.4)(db0@0.3.4)(eslint@9.38.0(jiti@2.6.1))(focus-trap@7.6.6)(fuse.js@7.1.0)(ioredis@5.8.2)(magicast@0.3.5)(nuxt@3.16.2(@parcel/watcher@2.5.1)(@types/node@24.9.1)(db0@0.3.4)(eslint@9.38.0(jiti@2.6.1))(ioredis@5.8.2)(magicast@0.3.5)(optionator@0.9.4)(rollup@4.52.5)(terser@5.44.0)(typescript@5.9.2)(vite@6.4.1(@types/node@24.9.1)(jiti@2.6.1)(terser@5.44.0)(yaml@2.9.1))(vue-tsc@2.2.10(typescript@5.9.2))(yaml@2.9.1))(rollup@4.52.5)(typescript@5.9.2)(vue-router@4.6.3(vue@3.5.22(typescript@5.9.2)))(vue@3.5.22(typescript@5.9.2))':
+  '@laioutr-core/frontend-core@0.73.0(@opentelemetry/api-logs@0.221.0)(@opentelemetry/resources@2.11.0(@opentelemetry/api@1.9.1))(@opentelemetry/sdk-logs@0.221.0(@opentelemetry/api@1.9.1))(@unhead/vue@2.1.17(vue@3.5.22(typescript@5.9.2)))(@vue/compiler-dom@3.5.22)(change-case@5.4.4)(db0@0.3.4)(eslint@9.38.0(jiti@2.6.1))(focus-trap@7.6.6)(fuse.js@7.1.0)(ioredis@5.8.2)(magicast@0.3.5)(nuxt@3.16.2(@parcel/watcher@2.5.1)(@types/node@24.9.1)(db0@0.3.4)(eslint@9.38.0(jiti@2.6.1))(ioredis@5.8.2)(magicast@0.3.5)(optionator@0.9.4)(rollup@4.52.5)(terser@5.44.0)(typescript@5.9.2)(vite@6.4.1(@types/node@24.9.1)(jiti@2.6.1)(terser@5.44.0)(yaml@2.9.1))(vue-tsc@2.2.10(typescript@5.9.2))(yaml@2.9.1))(rollup@4.52.5)(typescript@5.9.2)(vue-router@4.6.3(vue@3.5.22(typescript@5.9.2)))(vue@3.5.22(typescript@5.9.2))':
     dependencies:
-      '@laioutr-core/core-types': 0.71.0
-      '@laioutr-core/kit': 0.71.0(magicast@0.3.5)
-      '@laioutr-core/orchestr': 0.71.0(patch_hash=bdf026dfe0eca39fa5d8c272a9d370f5c8d0773af56ec284af0edff5803f1531)(db0@0.3.4)(ioredis@5.8.2)(magicast@0.3.5)(pinia@3.0.2(typescript@5.9.2)(vue@3.5.22(typescript@5.9.2)))(vue-router@4.6.3(vue@3.5.22(typescript@5.9.2)))
+      '@laioutr-core/core-types': 0.73.0
+      '@laioutr-core/kit': 0.73.0(magicast@0.3.5)
+      '@laioutr-core/orchestr': 0.73.0(db0@0.3.4)(ioredis@5.8.2)(magicast@0.3.5)(pinia@3.0.2(typescript@5.9.2)(vue@3.5.22(typescript@5.9.2)))(vue-router@4.6.3(vue@3.5.22(typescript@5.9.2)))
       '@nuxt/image': 1.9.0(db0@0.3.4)(ioredis@5.8.2)(magicast@0.3.5)
       '@nuxt/kit': 3.16.2(magicast@0.3.5)
       '@nuxtjs/i18n': 9.5.2(@vue/compiler-dom@3.5.22)(eslint@9.38.0(jiti@2.6.1))(magicast@0.3.5)(rollup@4.52.5)(vue@3.5.22(typescript@5.9.2))
@@ -9481,7 +9476,7 @@ snapshots:
       reka-ui: 2.9.10(vue@3.5.22(typescript@5.9.2))
       tldts: 7.4.13
       type-fest: 5.7.0
-      ufo: 1.6.1
+      ufo: 1.6.4
     transitivePeerDependencies:
       - '@azure/app-configuration'
       - '@azure/cosmos'
@@ -9536,9 +9531,9 @@ snapshots:
       - vue
       - vue-router
 
-  '@laioutr-core/kit@0.71.0(magicast@0.3.5)':
+  '@laioutr-core/kit@0.73.0(magicast@0.3.5)':
     dependencies:
-      '@laioutr-core/core-types': 0.71.0
+      '@laioutr-core/core-types': 0.73.0
       '@nuxt/kit': 3.16.2(magicast@0.3.5)
       '@nuxt/schema': 3.16.2
       '@parcel/watcher': 2.5.0
@@ -9549,10 +9544,10 @@ snapshots:
     transitivePeerDependencies:
       - magicast
 
-  '@laioutr-core/orchestr@0.71.0(patch_hash=bdf026dfe0eca39fa5d8c272a9d370f5c8d0773af56ec284af0edff5803f1531)(db0@0.3.4)(ioredis@5.8.2)(magicast@0.3.5)(pinia@3.0.2(typescript@5.9.2)(vue@3.5.22(typescript@5.9.2)))(vue-router@4.6.3(vue@3.5.22(typescript@5.9.2)))':
+  '@laioutr-core/orchestr@0.73.0(db0@0.3.4)(ioredis@5.8.2)(magicast@0.3.5)(pinia@3.0.2(typescript@5.9.2)(vue@3.5.22(typescript@5.9.2)))(vue-router@4.6.3(vue@3.5.22(typescript@5.9.2)))':
     dependencies:
       '@ebec/http': 2.3.0
-      '@laioutr-core/core-types': 0.71.0
+      '@laioutr-core/core-types': 0.73.0
       '@nuxt/kit': 3.16.2(magicast@0.3.5)
       '@opentelemetry/api': 1.9.1
       '@pinia/colada': 0.17.1(pinia@3.0.2(typescript@5.9.2)(vue@3.5.22(typescript@5.9.2)))
@@ -9597,14 +9592,14 @@ snapshots:
       - magicast
       - uploadthing
 
-  '@laioutr-core/ui-kit@2.32.1(@unocss/webpack@66.2.3(webpack@5.102.1(esbuild@0.28.2)))(db0@0.3.4)(ioredis@5.8.2)(magicast@0.3.5)(postcss@8.5.6)(vite@6.4.1(@types/node@24.9.1)(jiti@2.6.1)(terser@5.44.0)(yaml@2.9.1))(vue-router@4.6.3(vue@3.5.22(typescript@5.9.2)))(vue@3.5.22(typescript@5.9.2))(webpack@5.102.1(esbuild@0.28.2))':
+  '@laioutr-core/ui-kit@2.33.1(@unocss/webpack@66.2.3(webpack@5.102.1(esbuild@0.28.2)))(db0@0.3.4)(ioredis@5.8.2)(magicast@0.3.5)(postcss@8.5.6)(vite@6.4.1(@types/node@24.9.1)(jiti@2.6.1)(terser@5.44.0)(yaml@2.9.1))(vue-router@4.6.3(vue@3.5.22(typescript@5.9.2)))(vue@3.5.22(typescript@5.9.2))(webpack@5.102.1(esbuild@0.28.2))':
     dependencies:
       '@iconify-json/bxl': 1.2.4
       '@iconify-json/circle-flags': 1.2.6
       '@iconify-json/noto': 1.2.3
       '@iconify-json/simple-icons': 1.2.40
-      '@laioutr-core/core-types': 0.71.0
-      '@laioutr-core/ui-tokens': 2.32.1
+      '@laioutr-core/core-types': 0.73.0
+      '@laioutr-core/ui-tokens': 2.33.1
       '@nuxt/fonts': 0.10.3(db0@0.3.4)(ioredis@5.8.2)(magicast@0.3.5)(vite@6.4.1(@types/node@24.9.1)(jiti@2.6.1)(terser@5.44.0)(yaml@2.9.1))
       '@nuxt/icon': 1.13.0(magicast@0.3.5)(vite@6.4.1(@types/node@24.9.1)(jiti@2.6.1)(terser@5.44.0)(yaml@2.9.1))(vue@3.5.22(typescript@5.9.2))
       '@nuxt/image': 1.9.0(db0@0.3.4)(ioredis@5.8.2)(magicast@0.3.5)
@@ -9662,17 +9657,17 @@ snapshots:
       - vue
       - webpack
 
-  '@laioutr-core/ui-tokens@2.32.1': {}
+  '@laioutr-core/ui-tokens@2.33.1': {}
 
-  '@laioutr-core/ui@2.32.1(@unocss/webpack@66.2.3(webpack@5.102.1(esbuild@0.28.2)))(@vue/compiler-dom@3.5.22)(db0@0.3.4)(eslint@9.38.0(jiti@2.6.1))(ioredis@5.8.2)(magicast@0.3.5)(postcss@8.5.6)(rollup@4.52.5)(vite@6.4.1(@types/node@24.9.1)(jiti@2.6.1)(terser@5.44.0)(yaml@2.9.1))(vue-router@4.6.3(vue@3.5.22(typescript@5.9.2)))(vue@3.5.22(typescript@5.9.2))(webpack@5.102.1(esbuild@0.28.2))':
+  '@laioutr-core/ui@2.33.1(@unocss/webpack@66.2.3(webpack@5.102.1(esbuild@0.28.2)))(@vue/compiler-dom@3.5.22)(db0@0.3.4)(eslint@9.38.0(jiti@2.6.1))(ioredis@5.8.2)(magicast@0.3.5)(postcss@8.5.6)(rollup@4.52.5)(vite@6.4.1(@types/node@24.9.1)(jiti@2.6.1)(terser@5.44.0)(yaml@2.9.1))(vue-router@4.6.3(vue@3.5.22(typescript@5.9.2)))(vue@3.5.22(typescript@5.9.2))(webpack@5.102.1(esbuild@0.28.2))':
     dependencies:
       '@iconify-json/circle-flags': 1.2.6
       '@iconify-json/hugeicons': 1.2.3
       '@iconify-json/noto': 1.2.3
       '@iconify-json/solar': 1.2.2
-      '@laioutr-core/core-types': 0.71.0
-      '@laioutr-core/kit': 0.71.0(magicast@0.3.5)
-      '@laioutr-core/ui-kit': 2.32.1(@unocss/webpack@66.2.3(webpack@5.102.1(esbuild@0.28.2)))(db0@0.3.4)(ioredis@5.8.2)(magicast@0.3.5)(postcss@8.5.6)(vite@6.4.1(@types/node@24.9.1)(jiti@2.6.1)(terser@5.44.0)(yaml@2.9.1))(vue-router@4.6.3(vue@3.5.22(typescript@5.9.2)))(vue@3.5.22(typescript@5.9.2))(webpack@5.102.1(esbuild@0.28.2))
+      '@laioutr-core/core-types': 0.73.0
+      '@laioutr-core/kit': 0.73.0(magicast@0.3.5)
+      '@laioutr-core/ui-kit': 2.33.1(@unocss/webpack@66.2.3(webpack@5.102.1(esbuild@0.28.2)))(db0@0.3.4)(ioredis@5.8.2)(magicast@0.3.5)(postcss@8.5.6)(vite@6.4.1(@types/node@24.9.1)(jiti@2.6.1)(terser@5.44.0)(yaml@2.9.1))(vue-router@4.6.3(vue@3.5.22(typescript@5.9.2)))(vue@3.5.22(typescript@5.9.2))(webpack@5.102.1(esbuild@0.28.2))
       '@nuxt/kit': 3.16.2(magicast@0.3.5)
       '@nuxtjs/i18n': 9.5.2(@vue/compiler-dom@3.5.22)(eslint@9.38.0(jiti@2.6.1))(magicast@0.3.5)(rollup@4.52.5)(vue@3.5.22(typescript@5.9.2))
       '@vueuse/core': 13.1.0(vue@3.5.22(typescript@5.9.2))
@@ -9965,7 +9960,7 @@ snapshots:
       pathe: 1.1.2
       sirv: 3.0.2
       tinyglobby: 0.2.17
-      ufo: 1.6.1
+      ufo: 1.6.4
       unifont: 0.1.7
       unplugin: 2.3.10
       unstorage: 1.17.1(db0@0.3.4)(ioredis@5.8.2)
@@ -10025,7 +10020,7 @@ snapshots:
       ohash: 1.1.6
       pathe: 2.0.3
       std-env: 3.10.0
-      ufo: 1.6.1
+      ufo: 1.6.4
     optionalDependencies:
       ipx: 2.1.1(db0@0.3.4)(ioredis@5.8.2)
     transitivePeerDependencies:
@@ -10305,7 +10300,7 @@ snapshots:
       oxc-parser: 0.61.2
       pathe: 2.0.3
       typescript: 5.9.2
-      ufo: 1.6.1
+      ufo: 1.6.4
       unplugin: 2.3.10
       unplugin-vue-router: 0.12.0(vue-router@4.6.3(vue@3.5.22(typescript@5.9.2)))(vue@3.5.22(typescript@5.9.2))
       vue-i18n: 10.0.8(vue@3.5.22(typescript@5.9.2))
@@ -14169,7 +14164,7 @@ snapshots:
       magic-regexp: 0.8.0
       magic-string: 0.30.21
       pathe: 1.1.2
-      ufo: 1.6.1
+      ufo: 1.6.4
       unplugin: 1.16.1
     transitivePeerDependencies:
       - encoding
@@ -14423,7 +14418,7 @@ snapshots:
       iron-webcrypto: 1.2.1
       node-mock-http: 1.0.3
       radix3: 1.1.2
-      ufo: 1.6.1
+      ufo: 1.6.4
       uncrypto: 0.1.3
 
   h3@1.15.4:
@@ -14604,7 +14599,7 @@ snapshots:
       pathe: 1.1.2
       sharp: 0.32.6
       svgo: 3.3.2
-      ufo: 1.6.1
+      ufo: 1.6.4
       unstorage: 1.17.1(db0@0.3.4)(ioredis@5.8.2)
       xss: 1.0.15
     transitivePeerDependencies:
@@ -17489,7 +17484,7 @@ snapshots:
       lru-cache: 10.4.3
       node-fetch-native: 1.6.7
       ofetch: 1.4.1
-      ufo: 1.6.1
+      ufo: 1.6.4
     optionalDependencies:
       db0: 0.3.4
       ioredis: 5.8.2

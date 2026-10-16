@@ -35,10 +35,6 @@ overrides:
   '@unhead/vue': ^2.1.17
   unhead: ^2.1.17
 
-# redisKeyPrefix() ships in the next core release. Remove this patch when the peer floor moves to it.
-patchedDependencies:
-  '@laioutr-core/orchestr@0.71.0': patches/@laioutr-core__orchestr@0.71.0.patch
-
 shamefullyHoist: true
 
 strictPeerDependencies: false

@@ -9,9 +9,7 @@ Bot protection for [Laioutr](https://laioutr.com) actions without a vendor accou
 bot-protection provider of a storefront. Everything runs in the storefront's own Nitro server, and the
 browser contacts no third party.
 
-> **Status: pre-release.** The app needs `redisKeyPrefix()` from `@laioutr-core/orchestr`, which ships in
-> the next core release. Until then, `patches/@laioutr-core__orchestr@0.71.0.patch` adds it to 0.71.0.
-> When the release is out, raise the `@laioutr-core/frontend-core` peer floor to it and remove the patch.
+> **Status: pre-release.** The package is not published yet. See [Publishing](#publishing).
 
 ## How it works
 
@@ -30,7 +28,8 @@ Nothing loads before the first protected action.
 ## Setup
 
 1. Add the app to the project's `laioutrrc` and list the protected actions in
-   `config.botProtection.actions`, as for any bot-protection provider.
+   `config.botProtection.actions`, as for any bot-protection provider. The project needs
+   `@laioutr-core/frontend-core` 0.72.0 or later.
 2. Make sure the project has Redis for orchestr's cache. Laioutr Cloud has it. On Vercel, the project needs
    `redisUrl`. Without Redis, a built server rejects every protected action and logs why, because a proof
    could not be made single-use. The same happens when Redis refuses a claim, for example with `NOPERM`;
