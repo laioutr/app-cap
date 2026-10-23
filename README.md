@@ -9,8 +9,6 @@ Bot protection for [Laioutr](https://laioutr.com) actions without a vendor accou
 bot-protection provider of a storefront. Everything runs in the storefront's own Nitro server, and the
 browser contacts no third party.
 
-> **Status: pre-release.** The package is not published yet. See [Publishing](#publishing).
-
 ## How it works
 
 1. A visitor starts a protected action. frontend-core asks the app for a proof.
@@ -107,15 +105,11 @@ It refuses a widget or WASM version other than the pinned pair.
 ## Publishing
 
 Releases run through [changesets](https://github.com/changesets/changesets) and publish to npmjs.org with
-[npm trusted publishing](https://docs.npmjs.com/trusted-publishers). Before the first release:
+[npm trusted publishing](https://docs.npmjs.com/trusted-publishers). Add a changeset with `pnpm changeset`.
+On `main`, the `release` workflow opens a release PR, and merging that PR publishes the new version.
 
-1. Get the CTO's approval for a public `@laioutr/*` package.
-   Then remove `"private": true` from `package.json`. It stops `changeset publish` until then.
-2. Add the repository secrets `NPM_LAIOUTR_TOKEN` (read access to npm.laioutr.cloud) and `RELEASE_TOKEN`
-   (a fine-grained PAT with Contents and Pull requests read and write on this repository).
-3. Publish the first version by hand, because trusted publishing needs the package to exist:
-   `pnpm prepack && npm publish --access public --no-provenance`.
-4. Configure the trusted publisher on npm: GitHub Actions, this repository, workflow `release.yml`.
+The workflows need two repository secrets: `NPM_LAIOUTR_TOKEN` (read access to npm.laioutr.cloud) and
+`RELEASE_TOKEN` (a fine-grained PAT with Contents and Pull requests read and write on this repository).
 
 ## License
 

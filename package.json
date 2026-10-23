@@ -1,9 +1,11 @@
 {
   "name": "@laioutr/app-cap",
-  "version": "0.0.0",
-  "private": true,
+  "version": "0.1.0",
   "description": "Self-hosted proof-of-work bot protection for Laioutr actions, built on Cap",
-  "repository": "laioutr/app-cap",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/laioutr/app-cap.git"
+  },
   "license": "MIT",
   "keywords": [
     "laioutr",
