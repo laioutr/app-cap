@@ -17,7 +17,7 @@ const module: NuxtModule<ModuleOptions> = defineNuxtModule<ModuleOptions>({
   meta: { name, version, configKey: name },
   async setup(rawOptions, nuxt) {
     const logger = useLogger(name);
-    const { resolve } = createResolver(import.meta.url);
+    const { resolve, resolvePath } = createResolver(import.meta.url);
     const runtime = (path: string) => resolve('./runtime', path);
 
     nuxt.options.build.transpile.push(resolve('./runtime'));
@@ -45,7 +45,8 @@ const module: NuxtModule<ModuleOptions> = defineNuxtModule<ModuleOptions>({
     addServerHandler({ route: `${API_BASE}challenge`, method: 'post', handler: runtime('server/api/challenge.post') });
     addServerHandler({ route: `${API_BASE}redeem`, method: 'post', handler: runtime('server/api/redeem.post') });
 
-    const unbundled = runtime('server/lib/unbundled.mjs');
+    // The package build renames `.mjs` to `.js`, so the extension differs between source and dist.
+    const unbundled = await resolvePath(runtime('server/lib/unbundled'));
     nuxt.hook('nitro:config', (config) => {
       // The widget version is in the path, so the files never change under a URL.
       config.publicAssets ??= [];
