@@ -1,5 +1,10 @@
 # @laioutr/app-cap
 
+## 0.1.3
+### Patch Changes
+
+- 4ebf0ec: The app declares in `laioutr.manifest.json` that it provides bot protection, so the Cockpit can offer it.
+
 ## 0.1.2
 ### Patch Changes
 
