@@ -1,6 +1,6 @@
 {
   "name": "@laioutr/app-cap",
-  "version": "0.1.2",
+  "version": "0.1.3",
   "description": "Self-hosted proof-of-work bot protection for Laioutr actions, built on Cap",
   "repository": {
     "type": "git",
