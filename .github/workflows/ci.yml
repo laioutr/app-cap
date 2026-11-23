@@ -91,7 +91,8 @@ jobs:
         run: pnpm run test
 
   e2e:
-    runs-on: ubuntu-latest
+    # Playwright 1.57 installs no Chromium on Ubuntu 26.04, the image ubuntu-latest points to.
+    runs-on: ubuntu-24.04
 
     services:
       redis:
