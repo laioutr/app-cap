@@ -32,7 +32,8 @@
   },
   "files": [
     "dist",
-    "third-party-licenses"
+    "third-party-licenses",
+    "laioutr.manifest.json"
   ],
   "scripts": {
     "assets": "node scripts/copy-assets.mjs",
