@@ -76,10 +76,10 @@ jobs:
       - name: Release the version to the Laioutr Cockpit
         if: steps.changesets.outputs.published == 'true'
         env:
-          LAIOUTR_API_KEY: ${{ secrets.LAIOUTR_API_KEY }}
+          LAIOUTR_API_KEY: ${{ secrets.LAIOUTR_APP_PUBLISH_KEY }}
         run: |
           if [ -z "$LAIOUTR_API_KEY" ]; then
-            echo "::error::The LAIOUTR_API_KEY secret is not set. Add an organization API key with appPublish."
+            echo "::error::The LAIOUTR_APP_PUBLISH_KEY secret is not set. Add an organization API key with appPublish."
             exit 1
           fi
           npx --yes @laioutr/cli app release
