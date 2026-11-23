@@ -58,6 +58,7 @@ jobs:
       # Opens/updates a "Version Packages" PR while changesets are pending.
       # When that PR is merged, runs `pnpm release` to build + publish to npmjs.org.
       - name: Create Release PR or publish
+        id: changesets
         uses: changesets/action@v1
         with:
           version: pnpm changeset version
@@ -69,3 +70,16 @@ jobs:
           # A PR opened with the default GITHUB_TOKEN cannot trigger further workflows, so
           # release PRs would never get CI. This token gives them a different identity.
           GITHUB_TOKEN: ${{ secrets.RELEASE_TOKEN }}
+
+      # An npmjs version never passes through the Laioutr registry: only this call tells the Cockpit
+      # of the version and sends its laioutr.manifest.json, which says the app provides bot protection.
+      - name: Release the version to the Laioutr Cockpit
+        if: steps.changesets.outputs.published == 'true'
+        env:
+          LAIOUTR_API_KEY: ${{ secrets.LAIOUTR_API_KEY }}
+        run: |
+          if [ -z "$LAIOUTR_API_KEY" ]; then
+            echo "::error::The LAIOUTR_API_KEY secret is not set. Add an organization API key with appPublish."
+            exit 1
+          fi
+          npx --yes @laioutr/cli app release
